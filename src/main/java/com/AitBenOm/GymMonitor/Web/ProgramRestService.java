@@ -15,20 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "Programs")
 @CrossOrigin("*")
 
 public class ProgramRestService {
-
-
     @Autowired
     private ExerciseRestService exerciseRestService ;
-
-
-
     @Autowired
     private ProgramRepository programRepository;
-
-
 
 @RequestMapping(value = "/MyProgram", method = RequestMethod.GET)
     public Program getProgram(   @RequestParam(name = "idProgram") int idProgram){
@@ -38,10 +32,10 @@ public class ProgramRestService {
     public List<Program> getPrograms(   @RequestParam(name = "idUser") int idUser){
     return programRepository.getProgramsByUser(idUser);
 }
-@RequestMapping(value = "/Programs", method = RequestMethod.GET)
+/*@RequestMapping(value = "/Programs", method = RequestMethod.GET)
     public List<Program> getPrograms(  ){
     return programRepository.findAll();
-}
+}*/
 
     @RequestMapping(value = "/MyProgram/{id}", method = RequestMethod.PUT)
     public Program updateProgram(@PathVariable int idProgram,@RequestBody Program program){
