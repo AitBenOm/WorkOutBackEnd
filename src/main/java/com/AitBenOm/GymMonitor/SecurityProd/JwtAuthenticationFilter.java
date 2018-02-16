@@ -1,9 +1,12 @@
 package com.AitBenOm.GymMonitor.SecurityProd;
 
 import com.AitBenOm.GymMonitor.entities.User;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONObject;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -49,7 +52,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .setExpiration(Date.from(expirationTimeUTC.toInstant()))
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
-        response.getWriter().write(token);
-        response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+
+        JSONObject authToken = new JSONObject();
+        authToken.put("token",token);
+       response.getWriter().write(authToken.toJSONString());
+        response.addHeader(HEADER_STRING, TOKEN_PREFIX + authToken.toJSONString());
+        //System.out.println(response.getHeader(HEADER_STRING));
+
     }
 }
