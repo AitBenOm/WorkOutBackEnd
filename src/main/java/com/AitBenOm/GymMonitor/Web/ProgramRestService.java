@@ -55,11 +55,11 @@ public class ProgramRestService {
     }
 
     @RequestMapping(value = "/MyProgram", method = RequestMethod.POST)
-    public Program saveContact(@RequestBody Program program){
+    public Program saveContact(@RequestBody Program program,@RequestParam(name = "idUser") String idUser){
 
         System.out.println("Program To Save : "+program);
         User user = new User();
-        user.setIdUser(1);
+        user.setIdUser(Integer.parseInt(idUser));
 
         program.setUser(user);
         programRepository.save(program);
