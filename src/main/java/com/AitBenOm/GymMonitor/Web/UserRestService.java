@@ -20,7 +20,7 @@ public class UserRestService {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public User getUser(){
         String email="omar.benaissa@outlook.com";
-        return userRepository.getUserByEmailPassword(email);
+        return userRepository.getUserByEmail(email);
     }
 
 

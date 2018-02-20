@@ -11,7 +11,7 @@ public class User {
     @GeneratedValue
     private int idUser;
 
-    private String userName;
+    private String firstName;
     private String lastName;
     private String email;
     private String pwd;
@@ -23,8 +23,8 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String lastName, String email, String pwd) {
-        this.userName = userName;
+    public User(String firstName, String lastName, String email, String pwd) {
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.pwd = pwd;
@@ -39,12 +39,12 @@ public class User {
         this.idUser = idUser;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {

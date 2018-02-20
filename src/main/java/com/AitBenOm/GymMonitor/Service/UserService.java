@@ -9,8 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Component
+@Service
 public class UserService  implements UserDetailsService{
 
     @Autowired
@@ -24,7 +26,13 @@ public class UserService  implements UserDetailsService{
                 AuthorityUtils.createAuthorityList("USER"));
     }
     public User loadUserByEmail(String EMail){
-     return userRepository.getUserByEmailPassword(EMail);
+     return userRepository.getUserByEmail(EMail);
+
+        //return new User("omar","ait benaissa", "omar.benaissa@outlook.com","123456");
+    }
+    public User loadUserByEmailAndPwd(String EMail, String Pwd){
+        System.out.println("Email :"+EMail+" Pwd :"+Pwd);
+     return userRepository.getUserByEmailPassword(EMail,Pwd);
 
         //return new User("omar","ait benaissa", "omar.benaissa@outlook.com","123456");
     }

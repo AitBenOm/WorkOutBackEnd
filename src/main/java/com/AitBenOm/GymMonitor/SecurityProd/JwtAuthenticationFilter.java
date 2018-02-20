@@ -1,5 +1,6 @@
 package com.AitBenOm.GymMonitor.SecurityProd;
 
+import com.AitBenOm.GymMonitor.Service.UserService;
 import com.AitBenOm.GymMonitor.entities.User;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +8,7 @@ import org.json.simple.JSONObject;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,14 +31,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private AuthenticationManager authenticationManager;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+    private UserService userService ;
+    private User myUser= new User();
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService) {
         this.authenticationManager = authenticationManager;
+        this.userService=userService;
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             User user =new ObjectMapper().readValue(request.getInputStream(), User.class);
+            this.myUser=user;
             return  authenticationManager.
                     authenticate(new UsernamePasswordAuthenticationToken( user.getEmail(), user.getPwd()));
         } catch (IOException e) {
@@ -49,6 +56,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         ZonedDateTime expirationTimeUTC = ZonedDateTime.now(ZoneOffset.UTC).plus(EXPIRATION_TIME, ChronoUnit.MILLIS);
         String token = Jwts.builder().setSubject(
                 ((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getUsername())
+               // .setId(String.valueOf(this.userService.loadUserByEmailAndPwd(this.myUser.getEmail(),this.myUser.getPwd()).getIdUser()))
+               // .claim("myUser",this.userService.loadUserByEmail(this.myUser.getEmail()))
+                .claim("myUser",this.userService.loadUserByEmailAndPwd(this.myUser.getEmail(),this.myUser.getPwd()))
                 .setExpiration(Date.from(expirationTimeUTC.toInstant()))
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();

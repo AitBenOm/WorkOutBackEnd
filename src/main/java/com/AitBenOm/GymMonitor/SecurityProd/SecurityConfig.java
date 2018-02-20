@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"SingUp").permitAll()
                 .antMatchers("/Programs/**","/Exercises/**","/Loads/**").authenticated()
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(),userService));
     }
 
