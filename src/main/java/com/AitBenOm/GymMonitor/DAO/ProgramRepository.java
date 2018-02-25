@@ -18,6 +18,9 @@ public interface ProgramRepository extends JpaRepository<Program,Integer> {
     @Query("select p from Program p where p.idProgram = :x")
     public Program getProgramsById(@Param("x") int idProgram);
 
+    @Query("select p from Program p , Exercise e where e.program.idProgram = p.idProgram and e.idExercise=:x")
+    public Program getProgramByExercise(@Param("x") int idExercise);
+
 
 }
 

@@ -13,4 +13,9 @@ public interface ExerciseRepository extends JpaRepository<Exercise,Integer> {
 
     @Query("select e from Exercise e where e.program.idProgram =:x")
      List<Exercise> getExercisesByProgram(@Param("x") int idProgram);
+
+    @Query("select e from Exercise e where e.program.user.idUser =:x")
+     List<Exercise> getExercisesByUser(@Param("x") int idUser);
+
 }
+

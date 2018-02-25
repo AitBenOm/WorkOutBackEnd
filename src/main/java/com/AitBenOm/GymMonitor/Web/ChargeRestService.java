@@ -19,6 +19,10 @@ public class ChargeRestService {
     @Autowired
     private LoadRepository loadRepository;
 
+@RequestMapping(value = "/MyLoads/user", method = RequestMethod.GET)
+    public List<Charge> getLoadsByUser(@RequestParam(name = "idUser") int idUser){
+    return loadRepository.getLoadsByUser(idUser);
+}
 @RequestMapping(value = "/MyLoads", method = RequestMethod.GET)
     public List<Charge> getLoads(@RequestParam(name = "idExercise") int idExercise){
     return loadRepository.getLoadsByExercise(idExercise);
@@ -27,6 +31,8 @@ public class ChargeRestService {
     public List<Charge> getLoads(){
     return loadRepository.findAll();
 }
+
+
 @RequestMapping(value = "/MyLoad/{idLoad}", method = RequestMethod.GET)
     public Charge getLoadById(@PathVariable int idLoad){
     return loadRepository.findOne(idLoad);

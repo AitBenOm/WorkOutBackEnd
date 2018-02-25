@@ -26,6 +26,10 @@ public class ExerciseRestService {
     public List<Exercise> getExercises(@RequestParam(name = "idProgram") int idProgram){
     return exerciseRepository.getExercisesByProgram(idProgram);
 }
+@RequestMapping(value = "/MyExercises/user", method = RequestMethod.GET)
+    public List<Exercise> getExercisesByUser(@RequestParam(name = "idUser") int idUser){
+    return exerciseRepository.getExercisesByUser(idUser);
+}
 @RequestMapping(value = "/MyExercises/{idExercise}", method = RequestMethod.GET)
     public Exercise getExercise(@PathVariable int  idExercise){
     return exerciseRepository.findOne(idExercise);

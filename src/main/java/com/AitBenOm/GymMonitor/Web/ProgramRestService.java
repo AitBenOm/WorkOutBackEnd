@@ -32,15 +32,19 @@ public class ProgramRestService {
     public List<Program> getPrograms(   @RequestParam(name = "idUser") int idUser){
     return programRepository.getProgramsByUser(idUser);
 }
-/*@RequestMapping(value = "/Programs", method = RequestMethod.GET)
-    public List<Program> getPrograms(  ){
-    return programRepository.findAll();
-}*/
+
 
     @RequestMapping(value = "/MyProgram/{id}", method = RequestMethod.PUT)
     public Program updateProgram(@PathVariable int idProgram,@RequestBody Program program){
         program.setIdProgram(idProgram);
         return  programRepository.save(program);
+    }
+
+    @RequestMapping(value = "/MyProgram/exercise", method = RequestMethod.GET)
+    public Program getProgramByExercise(@RequestParam(name = "idExercise") int idExercise){
+
+        System.out.println("ProgramBy Exercise");
+        return  programRepository.getProgramByExercise(idExercise);
     }
 
 

@@ -13,6 +13,9 @@ public interface LoadRepository extends JpaRepository<Charge,Integer> {
     @Query("select c from Charge c where c.exercise.idExercise=:x")
     List<Charge> getLoadsByExercise(@Param("x") int idExercise);
 
+    @Query("select c from Charge c where c.exercise.program.user.idUser=:x")
+    List<Charge> getLoadsByUser(@Param("x") int idUser);
+
 
     @Query("delete from Charge c where c.idLoad=:x ")
     boolean deleteLoad(@Param("x") int idLoad);

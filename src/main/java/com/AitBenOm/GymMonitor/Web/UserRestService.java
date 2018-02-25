@@ -25,9 +25,10 @@ public class UserRestService {
     @RequestMapping(value = "/SingUp", method = RequestMethod.POST)
     public User registerUser(@RequestBody User user){
         if(getUser(user.getEmail())!=null){
-            System.out.println(user.getFirstName());
+            System.out.println("UserExist "+user.getEmail());
             return null;
         }else{
+            System.out.println("Uset not existe "+user.getEmail());
             return this.userRepository.save(user);
         }
 
