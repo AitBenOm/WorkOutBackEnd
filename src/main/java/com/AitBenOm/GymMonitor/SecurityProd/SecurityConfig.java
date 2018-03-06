@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
+        System.out.println("corsConfigurer");
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
@@ -40,10 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        System.out.println("Configure");
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST,"Users/SingUp").permitAll()
-                .antMatchers("/Programs/**","/Exercises/**","/Loads/**").authenticated()
+                .antMatchers(HttpMethod.POST,"Users/saveFile").permitAll()
+                .antMatchers("/Programs/**","/Exercises/**","/Loads/**","/Users/**").authenticated()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(),userService));

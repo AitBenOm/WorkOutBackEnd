@@ -30,13 +30,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println("doFilterInternal");
         String header = request.getHeader(HEADER_STRING);
-        System.out.println("Header is "+header);
-        System.out.println("Header is "+header);
-        System.out.println("Header is "+header);
-        System.out.println("Header is "+header);
-        System.out.println("Header is "+header);
-        System.out.println("Header is "+header);
+
         if(header == null || !header.startsWith(TOKEN_PREFIX)){
             chain.doFilter(request, response);
             return;
@@ -47,8 +43,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
     }
 
     private UsernamePasswordAuthenticationToken getAuthenticationToken(HttpServletRequest request){
+        System.out.println("UsernamePasswordAuthenticationToken");
         String token =request.getHeader(HEADER_STRING);
-        System.out.println("Token is " +token);
+//        System.out.println("Token is " +token);
         String email = Jwts.parser().setSigningKey(SECRET)
                 .parseClaimsJws(token.replace(TOKEN_PREFIX,""))
                 .getBody().getSubject();

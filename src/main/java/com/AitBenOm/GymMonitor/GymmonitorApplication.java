@@ -17,8 +17,6 @@ public class GymmonitorApplication implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 
-
-
 	}
 	@Bean
 	public FilterRegistrationBean corsFilterRegistration(){
