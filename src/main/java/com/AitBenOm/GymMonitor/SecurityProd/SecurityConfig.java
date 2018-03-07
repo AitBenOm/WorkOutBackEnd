@@ -44,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         System.out.println("Configure");
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST,"Users/SingUp").permitAll()
-                .antMatchers(HttpMethod.POST,"Users/saveFile").permitAll()
-                .antMatchers("/Programs/**","/Exercises/**","/Loads/**","/Users/**").authenticated()
+                .antMatchers(HttpMethod.GET,"/Users/**").permitAll()
+                .antMatchers("/Programs/**","/Exercises/**","/Loads/**").authenticated()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(),userService));
