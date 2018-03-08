@@ -15,6 +15,15 @@ public class User {
     private String lastName;
     private String email;
     private String pwd;
+    private String avatarPath;
+
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy="user",cascade =CascadeType.ALL, fetch=FetchType.EAGER)
