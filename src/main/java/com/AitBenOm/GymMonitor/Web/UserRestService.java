@@ -92,23 +92,15 @@ public class UserRestService {
         return new ResponseEntity<>("File is uploaded successfully", HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/getAvatar/{IdUser}", method = RequestMethod.GET)
-//    public ResponseEntity<byte[]> getMyAvatar(@PathVariable int IdUser) throws IOException {
-//        ClassPathResource imgFile = new ClassPathResource("user_" + IdUser + "/Capture.PNG");
-//        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
-//
-//        return ResponseEntity
-//                .ok()
-//                .contentType(MediaType.IMAGE_PNG)
-//                .body(bytes);
-//    }
 
     @RequestMapping(value = "/getImage/{IdUser}", method = RequestMethod.GET)
     public @ResponseBody
     Map<String, String> getImage(@PathVariable int IdUser) throws IOException {
-        ClassPathResource imgFile = new ClassPathResource(userRepository.getOne(IdUser).getAvatarPath() );
-        System.out.println(System.getProperty("user.dir") + "/src/main/resources/"+imgFile.getPath());
-        File file = new ClassPathResource(imgFile.getPath()).getFile();
+        String userDirectory = (System.getProperty("user.dir") + "/src/main/resources/"+userRepository.getOne(IdUser).getAvatarPath());
+        System.out.println(userDirectory);
+      //  ClassPathResource imgFile = new ClassPathResource(userRepository.getOne(IdUser).getAvatarPath() );
+      //  System.out.println(System.getProperty("user.dir") + "/src/main/resources/"+imgFile.getPath());
+        File file = new File(userDirectory);
         System.out.println(file.getPath());
 
         String encodeImage = Base64.getEncoder().withoutPadding().encodeToString(Files.readAllBytes(file.toPath()));
